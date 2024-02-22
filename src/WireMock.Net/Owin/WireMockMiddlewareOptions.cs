@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using WireMock.Handlers;
 using WireMock.Logging;
 using WireMock.Matchers;
+using WireMock.Owin.Mappers.Providers;
 using WireMock.Types;
 using WireMock.Util;
 #if !USE_ASPNETCORE
@@ -24,7 +25,7 @@ internal class WireMockMiddlewareOptions : IWireMockMiddlewareOptions
 
     public bool? AllowPartialMapping { get; set; }
 
-    public ConcurrentDictionary<Guid, IMapping> Mappings { get; } = new ConcurrentDictionary<Guid, IMapping>();
+    public IMappingProvider Mappings { get; set; }
 
     public ConcurrentDictionary<string, ScenarioState> Scenarios { get; } = new(StringComparer.OrdinalIgnoreCase);
 

@@ -12,6 +12,7 @@ using WireMock.RegularExpressions;
 using WireMock.Types;
 using System.Globalization;
 using WireMock.Models;
+using WireMock.Owin.Mappers.Providers;
 #if USE_ASPNETCORE
 using Microsoft.Extensions.DependencyInjection;
 #endif
@@ -320,4 +321,16 @@ public class WireMockServerSettings
     /// </summary>
     [PublicAPI]
     public Dictionary<string, GraphQLSchemaDetails>? GraphQLSchemas { get; set; }
+
+    /// <summary>
+    /// Specify Mapping Provider type
+    /// </summary>
+    [PublicAPI]
+    public MappingProviderType? MappingProviderType { get; set; }
+
+    /// <summary>
+    /// Object contain specific MappingProvider options
+    /// </summary>
+    [PublicAPI]
+    public object? MappingProviderOptions { get; set; }
 }

@@ -21,6 +21,8 @@ using WireMock.Logging;
 using WireMock.Matchers.Request;
 using WireMock.Models;
 using WireMock.Owin;
+using WireMock.Owin.Mappers.Providers;
+using WireMock.Owin.Mappers.Providers.Legacy;
 using WireMock.RequestBuilders;
 using WireMock.ResponseProviders;
 using WireMock.Serialization;
@@ -39,7 +41,7 @@ public partial class WireMockServer : IWireMockServer
 
     private readonly WireMockServerSettings _settings;
     private readonly IOwinSelfHost? _httpServer;
-    private readonly IWireMockMiddlewareOptions _options = new WireMockMiddlewareOptions();
+    private readonly IWireMockMiddlewareOptions _options;
     private readonly MappingConverter _mappingConverter;
     private readonly MatcherMapper _matcherMapper;
     private readonly MappingToFileSaver _mappingToFileSaver;
@@ -370,6 +372,16 @@ public partial class WireMockServer : IWireMockServer
         WireMockMiddlewareOptionsHelper.InitFromSettings(settings, _options);
 
         _options.LogEntries.CollectionChanged += LogEntries_CollectionChanged;
+
+        switch (settings.MappingProviderType)
+        {
+            default:
+            case MappingProviderType.Legacy:
+            {
+                _options.Mappings = new LegacyMappingProvider();
+                break;
+            }
+        }
 
         _matcherMapper = new MatcherMapper(_settings);
         _mappingConverter = new MappingConverter(_matcherMapper);
