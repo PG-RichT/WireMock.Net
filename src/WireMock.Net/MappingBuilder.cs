@@ -137,7 +137,7 @@ public class MappingBuilder : IMappingBuilder
         if (_options.Mappings.ContainsKey(mapping.Guid))
         {
             mapping.UpdatedAt = _dateTimeUtils.UtcNow;
-            _options.Mappings[mapping.Guid] = mapping;
+            _options.Mappings.Update(mapping.Guid, mapping);
         }
         else
         {

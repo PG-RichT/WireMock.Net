@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace WireMock.Owin.Mappers.Providers.Cosmos;
@@ -7,8 +6,20 @@ namespace WireMock.Owin.Mappers.Providers.Cosmos;
 internal class CosmosMappingProvider : IMappingProvider
 {
     private ICollection<IMapping> _values;
-    public ConcurrentDictionary<Guid, IMapping> Values { get; }
+
+    private readonly CosmosMappingProviderOptions? _options;
+
+    public CosmosMappingProvider(CosmosMappingProviderOptions? options)
+    {
+        _options = options;
+    }
+
     public KeyValuePair<Guid, IMapping>[] ToArray()
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool TryAdd(Guid key, IMapping mapping)
     {
         throw new NotImplementedException();
     }
@@ -19,6 +30,11 @@ internal class CosmosMappingProvider : IMappingProvider
     }
 
     public bool ContainsKey(Guid key)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(Guid key, IMapping mapping)
     {
         throw new NotImplementedException();
     }

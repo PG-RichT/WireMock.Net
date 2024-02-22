@@ -13,6 +13,11 @@ internal class LegacyMappingProvider : IMappingProvider
         return ValueStore.ToArray();
     }
 
+    public bool TryAdd(Guid key, IMapping mapping)
+    {
+        return ValueStore.TryAdd(key, mapping);
+    }
+
     public bool TryRemove(Guid key, out bool result)
     {
         return result = ValueStore.TryRemove(key, out _);
@@ -21,5 +26,10 @@ internal class LegacyMappingProvider : IMappingProvider
     public bool ContainsKey(Guid key)
     {
         return ValueStore.ContainsKey(key);
+    }
+
+    public void Update(Guid key, IMapping mapping)
+    {
+        ValueStore[key] = mapping;
     }
 }

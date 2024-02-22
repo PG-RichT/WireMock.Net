@@ -22,6 +22,7 @@ using WireMock.Matchers.Request;
 using WireMock.Models;
 using WireMock.Owin;
 using WireMock.Owin.Mappers.Providers;
+using WireMock.Owin.Mappers.Providers.Cosmos;
 using WireMock.Owin.Mappers.Providers.Legacy;
 using WireMock.RequestBuilders;
 using WireMock.ResponseProviders;
@@ -373,15 +374,12 @@ public partial class WireMockServer : IWireMockServer
 
         _options.LogEntries.CollectionChanged += LogEntries_CollectionChanged;
 
-        switch (settings.MappingProviderType)
+        _options.Mappings = settings.MappingProviderType switch
         {
-            default:
-            case MappingProviderType.Legacy:
-            {
-                _options.Mappings = new LegacyMappingProvider();
-                break;
-            }
-        }
+            MappingProviderType.Cosmos => new CosmosMappingProvider(
+                (CosmosMappingProviderOptions)settings.MappingProviderOptions!),
+            _ => new LegacyMappingProvider()
+        };
 
         _matcherMapper = new MatcherMapper(_settings);
         _mappingConverter = new MappingConverter(_matcherMapper);
