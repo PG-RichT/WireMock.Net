@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using WireMock;
+using WireMock.Owin.Mappers.Providers;
 
-namespace WireMock.Owin.Mappers.Providers.Cosmos;
+namespace Wiremock.Net.MappingProviders.Cosmos;
 
 internal class CosmosMappingProvider : IMappingProvider
 {
@@ -38,6 +38,8 @@ internal class CosmosMappingProvider : IMappingProvider
     {
         throw new NotImplementedException();
     }
+
+    public int Count { get; }
 
     ICollection<IMapping> IMappingProvider.Values => _values;
 }

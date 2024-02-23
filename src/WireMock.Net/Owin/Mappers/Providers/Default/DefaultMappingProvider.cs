@@ -2,12 +2,14 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace WireMock.Owin.Mappers.Providers.Legacy;
+namespace WireMock.Owin.Mappers.Providers.Default;
 
-internal class LegacyMappingProvider : IMappingProvider
+internal class DefaultMappingProvider : IMappingProvider
 {
     private ConcurrentDictionary<Guid, IMapping> ValueStore { get; } = new();
     public ICollection<IMapping> Values => ValueStore.Values;
+    public int Count => ValueStore.Count;
+
     public KeyValuePair<Guid, IMapping>[] ToArray()
     {
         return ValueStore.ToArray();

@@ -17,6 +17,8 @@ using WireMock.Settings;
 using FluentAssertions;
 using WireMock.Handlers;
 using WireMock.Matchers.Request;
+using WireMock.Owin.Mappers.Providers;
+using WireMock.Owin.Mappers.Providers.Default;
 using WireMock.ResponseBuilders;
 using WireMock.RequestBuilders;
 #if NET452
@@ -38,7 +40,7 @@ public class WireMockMiddlewareTests
     private static readonly Guid NewGuid = new("98fae52e-76df-47d9-876f-2ee32e931d9b");
     private static readonly DateTime UpdatedAt = new(2022, 12, 4);
 
-    private readonly ConcurrentDictionary<Guid, IMapping> _mappings = new();
+    private readonly IMappingProvider _mappings = new DefaultMappingProvider();
     private readonly Mock<IWireMockMiddlewareOptions> _optionsMock;
     private readonly Mock<IOwinRequestMapper> _requestMapperMock;
     private readonly Mock<IOwinResponseMapper> _responseMapperMock;
@@ -285,6 +287,6 @@ public class WireMockMiddlewareTests
         // Assert and Verify
         fileSystemHandlerMock.Verify(f => f.WriteMappingFile(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
-        _mappings.Should().HaveCount(1);
+        _mappings.Count.Should().Be(1);
     }
 }

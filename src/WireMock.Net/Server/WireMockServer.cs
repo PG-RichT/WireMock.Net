@@ -21,9 +21,7 @@ using WireMock.Logging;
 using WireMock.Matchers.Request;
 using WireMock.Models;
 using WireMock.Owin;
-using WireMock.Owin.Mappers.Providers;
-using WireMock.Owin.Mappers.Providers.Cosmos;
-using WireMock.Owin.Mappers.Providers.Legacy;
+using WireMock.Owin.Mappers.Providers.Default;
 using WireMock.RequestBuilders;
 using WireMock.ResponseProviders;
 using WireMock.Serialization;
@@ -376,9 +374,9 @@ public partial class WireMockServer : IWireMockServer
 
         _options.Mappings = settings.MappingProviderType switch
         {
-            MappingProviderType.Cosmos => new CosmosMappingProvider(
-                (CosmosMappingProviderOptions)settings.MappingProviderOptions!),
-            _ => new LegacyMappingProvider()
+            // MappingProviderType.Cosmos => new CosmosMappingProvider(
+            //     (CosmosMappingProviderOptions)settings.MappingProviderOptions!),
+            _ => new DefaultMappingProvider()
         };
 
         _matcherMapper = new MatcherMapper(_settings);

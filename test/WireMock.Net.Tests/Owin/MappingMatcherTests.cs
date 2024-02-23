@@ -6,6 +6,7 @@ using WireMock.Logging;
 using WireMock.Matchers.Request;
 using WireMock.Models;
 using WireMock.Owin;
+using WireMock.Owin.Mappers.Providers.Default;
 using WireMock.Services;
 using WireMock.Util;
 using Xunit;
@@ -23,7 +24,7 @@ public class MappingMatcherTests
     {
         _optionsMock = new Mock<IWireMockMiddlewareOptions>();
         _optionsMock.SetupAllProperties();
-        _optionsMock.Setup(o => o.Mappings).Returns(new ConcurrentDictionary<Guid, IMapping>());
+        _optionsMock.Setup(o => o.Mappings).Returns(new DefaultMappingProvider());
         _optionsMock.Setup(o => o.LogEntries).Returns(new ConcurrentObservableCollection<LogEntry>());
         _optionsMock.Setup(o => o.Scenarios).Returns(new ConcurrentDictionary<string, ScenarioState>());
 
@@ -59,7 +60,7 @@ public class MappingMatcherTests
         var mappingMock = new Mock<IMapping>();
         mappingMock.Setup(m => m.GetRequestMatchResult(It.IsAny<RequestMessage>(), It.IsAny<string>())).Throws<Exception>();
 
-        var mappings = new ConcurrentDictionary<Guid, IMapping>();
+        var mappings = new DefaultMappingProvider();
         mappings.TryAdd(Guid.NewGuid(), mappingMock.Object);
 
         _optionsMock.Setup(o => o.Mappings).Returns(mappings);
@@ -208,9 +209,9 @@ public class MappingMatcherTests
         result.Match.RequestMatchResult.AverageTotalScore.Should().Be(1.0);
     }
 
-    private static ConcurrentDictionary<Guid, IMapping> InitMappings(params (Guid guid, double[] scores, double? probability)[] matches)
+    private static DefaultMappingProvider InitMappings(params (Guid guid, double[] scores, double? probability)[] matches)
     {
-        var mappings = new ConcurrentDictionary<Guid, IMapping>();
+        var mappings = new DefaultMappingProvider();
 
         foreach (var match in matches)
         {

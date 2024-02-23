@@ -1,4 +1,4 @@
-﻿namespace WireMock.Owin.Mappers.Providers.Cosmos;
+﻿namespace Wiremock.Net.MappingProviders.Cosmos;
 
 /// <summary>
 /// Options for the Cosmos Mapping Provider
