@@ -6,9 +6,9 @@
 public enum MappingProviderType
 {
     /// <summary>
-    /// Legacy Mapping Provider, uses original concurrent dictionary implementation
+    /// Default Mapping Provider, uses original concurrent dictionary implementation
     /// </summary>
-    Legacy,
+    Default,
     /// <summary>
     /// Use Cosmos database as mapping provider
     /// </summary>

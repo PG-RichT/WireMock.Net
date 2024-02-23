@@ -21,6 +21,7 @@ using WireMock.Logging;
 using WireMock.Matchers.Request;
 using WireMock.Models;
 using WireMock.Owin;
+using WireMock.Owin.Mappers.Providers;
 using WireMock.Owin.Mappers.Providers.Default;
 using WireMock.RequestBuilders;
 using WireMock.ResponseProviders;
@@ -40,7 +41,7 @@ public partial class WireMockServer : IWireMockServer
 
     private readonly WireMockServerSettings _settings;
     private readonly IOwinSelfHost? _httpServer;
-    private readonly IWireMockMiddlewareOptions _options;
+    private readonly IWireMockMiddlewareOptions _options = new WireMockMiddlewareOptions();
     private readonly MappingConverter _mappingConverter;
     private readonly MatcherMapper _matcherMapper;
     private readonly MappingToFileSaver _mappingToFileSaver;
@@ -374,8 +375,8 @@ public partial class WireMockServer : IWireMockServer
 
         _options.Mappings = settings.MappingProviderType switch
         {
-            // MappingProviderType.Cosmos => new CosmosMappingProvider(
-            //     (CosmosMappingProviderOptions)settings.MappingProviderOptions!),
+            MappingProviderType.Cosmos => TypeLoader.LoadByFullName<IMappingProvider>(
+                "WireMock.Net.MappingProviders.Cosmos.CosmosMappingProvider", settings.MappingProviderOptions!),
             _ => new DefaultMappingProvider()
         };
 

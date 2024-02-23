@@ -4,6 +4,10 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>WireMock.Net.MappingProviders.Cosmos</RootNamespace>
+        <Authors>Rich Tamblyn</Authors>
+        <Description>Cosmos DB mapping provider can be used to support multiple instances of WireMock.Net server</Description>
+        <PackageTags>wiremock;mappings</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

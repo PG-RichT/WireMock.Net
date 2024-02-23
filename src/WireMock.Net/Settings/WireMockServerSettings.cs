@@ -329,8 +329,8 @@ public class WireMockServerSettings
     public MappingProviderType? MappingProviderType { get; set; }
 
     /// <summary>
-    /// Object contain specific MappingProvider options
+    /// Object contain MappingProvider options - see target provider implementation for more info
     /// </summary>
     [PublicAPI]
-    public object? MappingProviderOptions { get; set; }
+    public IMappingProviderOptions? MappingProviderOptions { get; set; }
 }

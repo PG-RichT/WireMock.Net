@@ -7,9 +7,9 @@ internal class CosmosMappingProvider : IMappingProvider
 {
     private ICollection<IMapping> _values;
 
-    private readonly CosmosMappingProviderOptions? _options;
+    private CosmosMappingProviderOptions? _options;
 
-    public CosmosMappingProvider(CosmosMappingProviderOptions? options)
+    public CosmosMappingProvider(CosmosMappingProviderOptions options)
     {
         _options = options;
     }

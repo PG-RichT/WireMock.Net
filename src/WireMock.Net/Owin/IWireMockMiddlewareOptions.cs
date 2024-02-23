@@ -25,8 +25,6 @@ internal interface IWireMockMiddlewareOptions
 
     bool? AllowPartialMapping { get; set; }
 
-    //ConcurrentDictionary<Guid, IMapping> Mappings { get; }
-
     IMappingProvider Mappings { get; set; }
 
     ConcurrentDictionary<string, ScenarioState> Scenarios { get; }
