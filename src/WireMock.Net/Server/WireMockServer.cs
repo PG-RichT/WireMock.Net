@@ -373,13 +373,6 @@ public partial class WireMockServer : IWireMockServer
 
         _options.LogEntries.CollectionChanged += LogEntries_CollectionChanged;
 
-        _options.Mappings = settings.MappingProviderType switch
-        {
-            MappingProviderType.Cosmos => TypeLoader.LoadByFullName<IMappingProvider>(
-                "WireMock.Net.MappingProviders.Cosmos.CosmosMappingProvider", settings.MappingProviderOptions!),
-            _ => new DefaultMappingProvider()
-        };
-
         _matcherMapper = new MatcherMapper(_settings);
         _mappingConverter = new MappingConverter(_matcherMapper);
         _mappingToFileSaver = new MappingToFileSaver(_settings, _mappingConverter);
@@ -391,6 +384,14 @@ public partial class WireMockServer : IWireMockServer
             _guidUtils,
             _dateTimeUtils
         );
+
+        _options.Mappings = settings.MappingProviderType switch
+        {
+            MappingProviderType.Cosmos => TypeLoader.LoadByFullName<IMappingProvider>(
+                "WireMock.Net.MappingProviders.Cosmos.CosmosMappingProvider", settings.MappingProviderOptions!,
+                _mappingConverter),
+            _ => new DefaultMappingProvider()
+        };
 
 #if USE_ASPNETCORE
         _options.AdditionalServiceRegistration = _settings.AdditionalServiceRegistration;

@@ -23,5 +23,12 @@ internal class Program
         };
 
         var server = WireMockServer.Start(settings);
+
+        System.Console.WriteLine($"WireMockServer running on http://localhost:5000");
+
+        while (server.IsStarted)
+        {
+            Thread.Sleep(1000);
+        }
     }
 }

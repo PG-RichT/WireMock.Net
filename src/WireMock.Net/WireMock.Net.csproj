@@ -199,8 +199,4 @@
     <ItemGroup Condition="'$(TargetFramework)' != 'netstandard1.3' and '$(TargetFramework)' != 'net451' and '$(TargetFramework)' != 'net452'">
         <ProjectReference Include="..\WireMock.Net.OpenApiParser\WireMock.Net.OpenApiParser.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Owin\Mappers\Providers\Cosmos\" />
-    </ItemGroup>
 </Project>

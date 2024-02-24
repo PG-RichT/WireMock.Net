@@ -21,7 +21,7 @@ using static WireMock.Util.CSharpFormatter;
 
 namespace WireMock.Serialization;
 
-internal class MappingConverter
+public class MappingConverter
 {
     private static readonly string AcceptOnMatch = MatchBehaviour.AcceptOnMatch.GetFullyQualifiedEnumValue();
 

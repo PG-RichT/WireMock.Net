@@ -13,7 +13,7 @@ using WireMock.Util;
 
 namespace WireMock.Serialization;
 
-internal class MatcherMapper
+public class MatcherMapper
 {
     private readonly WireMockServerSettings _settings;
 
